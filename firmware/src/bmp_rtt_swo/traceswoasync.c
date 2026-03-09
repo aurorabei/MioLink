@@ -59,7 +59,7 @@
 #define TRACESWO_RX_DMA_BAUDRATE_THRESHOLD (38400)
 #define TRACESWO_RX_DMA_MIN_TIMEOUT        (50)
 #define TRACESWO_RX_DMA_MAX_TIMEOUT        (200)
-#define TRACESWO_TASK_NOTIFY_WAIT_PERIOD (portMAX_DELAY)
+#define TRACESWO_TASK_NOTIFY_WAIT_PERIOD   (portMAX_DELAY)
 
 #define TRACESWO_VENDOR_INTERFACE (0)
 
@@ -334,8 +334,10 @@ static bool rx_dma_finish_receiving(void)
 	const uint32_t data_in_buffer = sizeof(rx_buf[0]) - remaining;
 
 	dma_channel_set_irq0_enabled(rx_dma_channel, false);
+	rp_dma_set_chain_to(rx_dma_channel, rx_dma_channel);
 	dma_channel_abort(rx_dma_channel);
 	dma_channel_acknowledge_irq0(rx_dma_channel);
+	rp_dma_set_chain_to(rx_dma_channel, rx_dma_ctrl_channel);
 
 	dma_channel_set_read_addr(rx_dma_ctrl_channel, (void *)(rx_dma_ctrl_block_info + rx_dma_current_buffer), true);
 
@@ -452,7 +454,7 @@ static void traceswo_thread(void *params)
 	uint32_t wait_time = TRACESWO_TASK_NOTIFY_WAIT_PERIOD;
 
 	while (1) {
-		if (xTaskNotifyWait(0, UINT32_MAX, &notificationValue, pdMS_TO_TICKS(wait_time)) == pdPASS) {
+		if (xTaskNotifyWait(0, UINT32_MAX, &notificationValue, wait_time) == pdPASS) {
 			if (notificationValue & USB_CDC_NOTIF_SERIAL_RX_AVAILABLE) {
 				if (rx_use_dma == false) {
 					rx_int_process();

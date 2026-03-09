@@ -1,8 +1,8 @@
 /*
- * MioLink revision B board pinout and configuration.
+ * MioLink board common configuration.
  */
-#ifndef _BOARDS_MIOLINK_REV_B_H
-#define _BOARDS_MIOLINK_REV_B_H
+#ifndef _BOARDS_MIOLINK_H
+#define _BOARDS_MIOLINK_H
 
 #include "pinout/miolink_rev_a_pinout.h"
 #include "pinout/miolink_rev_b_pinout.h"
@@ -29,4 +29,4 @@ pico_board_cmake_set_default(PICO_FLASH_SIZE_BYTES, (2 * 1024 * 1024))
 #define PICO_RP2040_B0_SUPPORTED 0
 #endif
 
-#endif /* _BOARDS_MIOLINK_REV_B_H */
+#endif /* _BOARDS_MIOLINK_H */

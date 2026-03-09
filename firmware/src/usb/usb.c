@@ -552,9 +552,9 @@ extern TaskHandle_t gdb_task;
 
 void tud_cdc_rx_cb(uint8_t interface)
 {
-	if (interface == USB_CDC_GDB) {
+	if ((interface == USB_CDC_GDB) && (gdb_task != NULL)) {
 		xTaskNotify(gdb_task, USB_CDC_NOTIF_USB_RX_AVAILABLE, eSetBits);
-	} else if (interface == USB_CDC_TARGET_SERIAL) {
+	} else if ((interface == USB_CDC_TARGET_SERIAL) && (usb_uart_task != NULL)) {
 		xTaskNotify(usb_uart_task, USB_CDC_NOTIF_USB_RX_AVAILABLE, eSetBits);
 	}
 }
@@ -564,9 +564,9 @@ void tud_cdc_line_state_cb(uint8_t interface, bool dtr, bool rts)
 	(void)rts;
 	(void)dtr;
 
-	if (interface == USB_CDC_GDB) {
+	if ((interface == USB_CDC_GDB) && (gdb_task != NULL)) {
 		xTaskNotify(gdb_task, USB_CDC_NOTIF_LINE_STATE_UPDATE, eSetBits);
-	} else if (interface == USB_CDC_TARGET_SERIAL) {
+	} else if ((interface == USB_CDC_TARGET_SERIAL) && (usb_uart_task != NULL)) {
 		xTaskNotify(usb_uart_task, USB_CDC_NOTIF_LINE_STATE_UPDATE, eSetBits);
 	}
 }
@@ -574,12 +574,12 @@ void tud_cdc_line_state_cb(uint8_t interface, bool dtr, bool rts)
 void tud_cdc_line_coding_cb(uint8_t interface, cdc_line_coding_t const *p_line_coding)
 {
 	(void)p_line_coding;
-	if (interface == USB_CDC_TARGET_SERIAL) {
+	if ((interface == USB_CDC_TARGET_SERIAL) && (usb_uart_task != NULL)) {
 		xTaskNotify(usb_uart_task, USB_CDC_NOTIF_LINE_CODING_UPDATE, eSetBits);
 	}
 }
 
-static bool usb_config_updated = false;
+static volatile bool usb_config_updated = false;
 
 void tud_mount_cb(void)
 {

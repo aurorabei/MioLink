@@ -166,14 +166,14 @@ uint32_t tap_pio_set_sm_freq(PIO pio, uint32_t sm, uint32_t freq, uint32_t max_i
 	}
 
 	uint32_t clkdiv_int = (max_interface_freq / freq);
-	uint32_t clkdiv_fraq = ((((uint64_t)max_interface_freq) << 8) / freq) & 0xFF;
+	uint32_t clkdiv_frac = ((((uint64_t)max_interface_freq) << 8) / freq) & 0xFF;
 
 	if (clkdiv_int >= (((uint32_t)UINT16_MAX) + 1)) {
 		clkdiv_int = 0;
-		clkdiv_fraq = 0;
+		clkdiv_frac = 0;
 	}
 
-	pio_sm_set_clkdiv_int_frac(pio, sm, clkdiv_int, clkdiv_fraq);
+	pio_sm_set_clkdiv_int_frac(pio, sm, clkdiv_int, clkdiv_frac);
 	pio_sm_clkdiv_restart(pio, sm);
 
 	return freq;

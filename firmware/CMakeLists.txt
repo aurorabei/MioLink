@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 # Save build type in uppercase for easier comparison
 string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_TYPE)
 
-# Use Pico SDK board selection; our board headers in include/boards/ are searched first (SDK appends its path).
+# Use Pico SDK board selection; our board headers in boards/ are searched first (SDK appends its path).
 set(PICO_BOARD_HEADER_DIRS ${CMAKE_CURRENT_LIST_DIR}/boards)
 
 # Default board when not set (override with -DPICO_BOARD=pico etc.)

@@ -70,8 +70,8 @@ SECTIONS
         *(EXCLUDE_FILE(*libgcc.a: *libc.a:*lib_a-mem*.o *libm.a:
                        *tinyusb/src/*.c.o*
                        *FreeRTOS-Kernel/*.c.o*
-                       *pico_sdk-src/*.c.o*
-                       *pico_sdk-src/*.S.o*
+                       *pico-sdk/src/*.c.o*
+                       *pico-sdk/src/*.S.o*
                        *blackmagic/src/gdb*.c.o*
                        *blackmagic/src/rtt.c.o*
                        *blackmagic/src/hex_utils.c.o*
@@ -80,7 +80,13 @@ SECTIONS
                        *blackmagic/src/target/cortex*.c.o*
                        *blackmagic/src/target/jtag*.c.o*
                        *blackmagic/src/target/target_flash.c.o*
-                       *bmp/*c.o*) .text*)
+                       *bmp_platform/*.c.o*
+                       *bmp_port/*.c.o*
+                       *bmp_rtt_swo/*.c.o*
+                       *bmp_tap/*.c.o*
+                       *target_serial/*.c.o*
+                       *usb/*.c.o*
+                       *src/main.c.o*) .text*)
         *(.fini)
         /* Pull all c'tors into .text */
         *crtbegin.o(.ctors)
@@ -104,8 +110,8 @@ SECTIONS
         *(EXCLUDE_FILE(*libgcc.a: *libc.a:*lib_a-mem*.o *libm.a:
                        *tinyusb/src/*.c.o*
                        *FreeRTOS-Kernel/*.c.o*
-                       *pico_sdk-src/*.c.o*
-                       *pico_sdk-src/*.S.o*
+                       *pico-sdk/src/*.c.o*
+                       *pico-sdk/src/*.S.o*
                        *blackmagic/src/gdb*.c.o*
                        *blackmagic/src/rtt.c.o*
                        *blackmagic/src/hex_utils.c.o*
@@ -114,7 +120,13 @@ SECTIONS
                        *blackmagic/src/target/cortex*.c.o*
                        *blackmagic/src/target/jtag*.c.o*
                        *blackmagic/src/target/target_flash.c.o*
-                       *bmp/*c.o*) .rodata*)
+                       *bmp_platform/*.c.o*
+                       *bmp_port/*.c.o*
+                       *bmp_rtt_swo/*.c.o*
+                       *bmp_tap/*.c.o*
+                       *target_serial/*.c.o*
+                       *usb/*.c.o*
+                       *src/main.c.o*) .rodata*)
         . = ALIGN(4);
         *(SORT_BY_ALIGNMENT(SORT_BY_NAME(.flashdata*)))
         . = ALIGN(4);

@@ -54,7 +54,7 @@
 #define GDB_TASK_CORE_AFFINITY (0x02) /* Core 1 only */
 #define GDB_TASK_STACK_SIZE    (2048)
 
-TaskHandle_t gdb_task;
+TaskHandle_t gdb_task = NULL;
 
 static void bmp_poll_loop(void)
 {

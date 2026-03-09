@@ -74,10 +74,10 @@
 
 /* UART TX DMA settings */
 #define USB_SERIAL_UART_DMA_TX_BUFFER_SIZE           (256)
-#define USB_SERIAL_UART_DMA_TX_CHECK_FINISHED_PERIOD (2)
+#define USB_SERIAL_UART_DMA_TX_CHECK_FINISHED_PERIOD (pdMS_TO_TICKS(2))
 
 /* USB serial task settings  */
-#define USB_SERIAL_TASK_NOTIFY_WAIT_PERIOD (portMAX_DELAY)
+#define USB_SERIAL_TASK_NOTIFY_WAIT_PERIOD portMAX_DELAY
 
 #define USB_SERIAL_TASK_CORE_AFFINITY (0x01) /* Core 0 only */
 #define USB_SERIAL_TASK_STACK_SIZE    (512)
@@ -108,7 +108,7 @@ static struct {
 static bool use_uart_on_tdi_tdo = false;
 static uart_inst_t *current_uart = USB_SERIAL_UART_MAIN;
 
-TaskHandle_t usb_uart_task;
+TaskHandle_t usb_uart_task = NULL;
 
 #ifdef ENABLE_RTT
 extern void rtt_serial_receive_callback(void);
@@ -425,6 +425,7 @@ static void uart_update_config(cdc_line_coding_t *line_coding)
 	if ((use_uart_on_tdi_tdo != false) && (current_uart == USB_SERIAL_UART_MAIN)) {
 #ifdef PLATFORM_HAS_TRACESWO
 		if (traceswo_uart_is_used(USB_SERIAL_UART_TDI_TDO)) {
+			portEXIT_CRITICAL();
 			return;
 		}
 #endif
@@ -442,6 +443,7 @@ static void uart_update_config(cdc_line_coding_t *line_coding)
 	} else if ((use_uart_on_tdi_tdo == false) && (current_uart == USB_SERIAL_UART_TDI_TDO)) {
 #ifdef PLATFORM_HAS_TRACESWO
 		if (traceswo_uart_is_used(USB_SERIAL_UART_MAIN)) {
+			portEXIT_CRITICAL();
 			return;
 		}
 #endif
@@ -616,7 +618,7 @@ static void target_serial_thread(void *params)
 	uint32_t wait_time = USB_SERIAL_TASK_NOTIFY_WAIT_PERIOD;
 
 	while (1) {
-		if (xTaskNotifyWait(0, UINT32_MAX, &notification_value, pdMS_TO_TICKS(wait_time)) == pdPASS) {
+		if (xTaskNotifyWait(0, UINT32_MAX, &notification_value, wait_time) == pdPASS) {
 			if (notification_value & USB_CDC_NOTIF_LINE_CODING_UPDATE) {
 				cdc_line_coding_t line_coding = {0};
 				tud_cdc_n_get_line_coding(USB_CDC_TARGET_SERIAL, &line_coding);

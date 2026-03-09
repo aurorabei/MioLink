@@ -7,7 +7,6 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/hw_extras)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/pio_programs)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/target_serial)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/usb)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/version)
 
 # Main source library
 add_library(src INTERFACE)
@@ -30,5 +29,4 @@ target_link_libraries(src INTERFACE
     pio_programs
     target_serial
     usb
-    version
 )

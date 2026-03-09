@@ -109,7 +109,7 @@ char gdb_if_getchar(void)
 			continue;
 		}
 
-		if (xTaskNotifyWait(0, UINT32_MAX, &notification_value, pdMS_TO_TICKS(portMAX_DELAY)) != pdFALSE) {
+		if (xTaskNotifyWait(0, UINT32_MAX, &notification_value, portMAX_DELAY) != pdFALSE) {
 			if (notification_value & USB_CDC_NOTIF_USB_RX_AVAILABLE) {
 				usb_to_gdb_count = tud_cdc_n_read(USB_CDC_GDB, usb_to_gdb_buf, sizeof(usb_to_gdb_buf));
 			}

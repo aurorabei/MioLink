@@ -87,7 +87,7 @@ target_include_directories(blackmagic INTERFACE ${CMAKE_CURRENT_LIST_DIR}/blackm
 execute_process(COMMAND ${GIT_EXECUTABLE} --git-dir ${CMAKE_CURRENT_LIST_DIR}/blackmagic/.git describe --tags --always
     OUTPUT_VARIABLE GIT_BMP_REPO_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
    
-# SEGGER RTT libraty
+# SEGGER RTT library
 add_library(segger_rtt INTERFACE)
 
 # Segger RTT include directories

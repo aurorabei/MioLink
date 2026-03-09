@@ -41,8 +41,8 @@
 
 /* usb uart receive buffer */
 static char recv_buf[RTT_DOWN_BUF_SIZE];
-static uint32_t recv_head = 0;
-static uint32_t recv_tail = 0;
+static volatile uint32_t recv_head = 0;
+static volatile uint32_t recv_tail = 0;
 
 /* data from host to target: number of free bytes in usb receive buffer */
 inline static uint32_t recv_bytes_free()
