@@ -1,0 +1,31 @@
+/*
+ * MioLink revision A - Pico SDK board header.
+ */
+#ifndef _BOARDS_OVERLAY_MIOLINK_REV_A_OVERLAY_H
+#define _BOARDS_OVERLAY_MIOLINK_REV_A_OVERLAY_H
+
+/* --- MioLink rev A: target voltage / power --- */
+#define MIOLINK_REVA_TARGET_VOLTAGE_ADC_CHANNEL 3
+#define MIOLINK_REVA_TARGET_VOLTAGE_ENABLE_PIN  3
+#define MIOLINK_REVA_TARGET_VOLTAGE_FAULT_PIN  1
+
+/* --- MioLink rev A: LEDs --- */
+#define MIOLINK_REVA_LED_ACT_PIN 13
+#define MIOLINK_REVA_LED_ERR_PIN 10
+#define MIOLINK_REVA_LED_SER_PIN 12
+
+/* --- MioLink rev A: JTAG/SWD --- */
+#define MIOLINK_REVA_TARGET_TCK_PIN     24
+#define MIOLINK_REVA_TARGET_TDO_PIN     17
+#define MIOLINK_REVA_TARGET_TDI_PIN     28
+#define MIOLINK_REVA_TARGET_TMS_PIN     26
+#define MIOLINK_REVA_TARGET_TMS_DIR_PIN 27
+
+/* --- MioLink rev A: UART --- */
+#define MIOLINK_REVA_TARGET_UART_TX_PIN 8
+#define MIOLINK_REVA_TARGET_UART_RX_PIN 21
+
+/* --- MioLink rev A: Reset --- */
+#define MIOLINK_REVA_TARGET_NRST_PIN 18
+
+#endif /* _BOARDS_OVERLAY_MIOLINK_REV_A_OVERLAY_H */

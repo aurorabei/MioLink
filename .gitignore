@@ -64,9 +64,14 @@ Mkfile.old
 dkms.conf
 
 # CMake folders
+build/
+firmware/build*/
 firmware/cmake-build-*/
 hardware/**/*-backups/
 hardware/**/jlcpcb/gerber/
+
+# CLion cache
+.cache
 
 # Mac OS DS_Store files
 .DS_Store

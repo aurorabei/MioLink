@@ -1,0 +1,31 @@
+/*
+ * MioLink_Pico (Pico-based MioLink) - Pico SDK board header.
+ */
+#ifndef _BOARDS_OVERLAY_MIOLINK_PICO_OVERLAY_H
+#define _BOARDS_OVERLAY_MIOLINK_PICO_OVERLAY_H
+
+/* --- MioLink_Pico: target voltage / power --- */
+#define MIOLINK_PICO_TARGET_VOLTAGE_ADC_CHANNEL 1
+#define MIOLINK_PICO_TARGET_VOLTAGE_ENABLE_PIN  3
+#define MIOLINK_PICO_TARGET_VOLTAGE_FAULT_PIN  1
+
+/* --- MioLink_Pico: LEDs --- */
+#define MIOLINK_PICO_LED_ACT_PIN 13
+#define MIOLINK_PICO_LED_ERR_PIN 10
+#define MIOLINK_PICO_LED_SER_PIN 12
+
+/* --- MioLink_Pico: JTAG/SWD --- */
+#define MIOLINK_PICO_TARGET_TCK_PIN     20
+#define MIOLINK_PICO_TARGET_TDO_PIN     17
+#define MIOLINK_PICO_TARGET_TDI_PIN     28
+#define MIOLINK_PICO_TARGET_TMS_PIN     26
+#define MIOLINK_PICO_TARGET_TMS_DIR_PIN 19
+
+/* --- MioLink_Pico: UART --- */
+#define MIOLINK_PICO_TARGET_UART_TX_PIN 8
+#define MIOLINK_PICO_TARGET_UART_RX_PIN 21
+
+/* --- MioLink_Pico: Reset --- */
+#define MIOLINK_PICO_TARGET_NRST_PIN 18
+
+#endif /* _BOARDS_OVERLAY_MIOLINK_PICO_OVERLAY_H */
