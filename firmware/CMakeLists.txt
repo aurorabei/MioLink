@@ -51,6 +51,7 @@ pico_set_printf_implementation(MioLink "compiler")
 set(CONFIG_NUMBER_OF_CORES 2)
 
 target_compile_definitions(MioLink PRIVATE
+        PICO_STDIO_SHORT_CIRCUIT_CLIB_FUNCS=0
         CONFIG_NUMBER_OF_CORES=${CONFIG_NUMBER_OF_CORES}
 )
 
