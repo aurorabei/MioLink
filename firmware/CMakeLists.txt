@@ -72,7 +72,7 @@ endif()
 # Create version header from git tag
 execute_process(COMMAND ${GIT_EXECUTABLE} --git-dir ${CMAKE_CURRENT_LIST_DIR}/../.git describe --tags --always
         OUTPUT_VARIABLE GIT_MIOLINK_REPO_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
-configure_file("${CMAKE_CURRENT_LIST_DIR}/src/version/git_version.h.in" "git_version.h")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/git_version/git_version.h.in" "git_version.h")
 
 # Include source library
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src)

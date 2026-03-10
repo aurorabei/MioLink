@@ -12,7 +12,7 @@
 	url = https://github.com/SEGGERMicro/RTT.git
 [submodule "firmware/external/SEGGER/SysView"]
 	path = firmware/external/SEGGER/SysView
-	url = https://github.com/Misaka0x2730/SystemView.git
+	url = https://github.com/SEGGERMicro/SystemView.git
 [submodule "firmware/external/blackmagic"]
 	path = firmware/external/blackmagic
 	url = https://codeberg.org/blackmagic-debug/blackmagic.git
