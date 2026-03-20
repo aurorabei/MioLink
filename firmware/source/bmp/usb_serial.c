@@ -682,7 +682,7 @@ static void target_serial_thread(void *params)
 
 bool usb_serial_get_dtr(void)
 {
-	return (tud_cdc_n_get_line_state(USB_CDC_TARGET_SERIAL) & 0x01) != 0;
+	return true;//(tud_cdc_n_get_line_state(USB_CDC_TARGET_SERIAL) & 0x01) != 0;
 }
 
 void usb_serial_update_led(void)

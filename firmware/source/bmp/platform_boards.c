@@ -46,7 +46,7 @@ static const platform_target_pins_t miolink_rev_a_target_pins = {.tck = MIOLINK_
 	.uart_tx = MIOLINK_REVA_TARGET_UART_TX_PIN,
 	.uart_rx = MIOLINK_REVA_TARGET_UART_RX_PIN,
 	.reset = MIOLINK_REVA_TARGET_NRST_PIN,
-	.reset_state = true};
+	.reset_state = false};
 
 static const platform_led_pins_t miolink_rev_a_led_pins = {
 	.act = MIOLINK_REVA_LED_ACT_PIN, .ser = MIOLINK_REVA_LED_SER_PIN, .err = MIOLINK_REVA_LED_ERR_PIN};
@@ -117,66 +117,13 @@ void platform_update_hwtype(void)
 {
 	if (device_type == PLATFORM_DEVICE_TYPE_NOT_SET) {
 		const int hwversion = platform_hwversion();
-
-		if (hwversion == HWVERSION_PICO) {
-			gpio_init(PICO_LED_ACT_PIN);
-			gpio_set_dir(PICO_LED_ACT_PIN, GPIO_OUT);
-			gpio_put(PICO_LED_ACT_PIN, false);
-
-			adc_init();
-			adc_gpio_init(26 + PICO_DETECT_ADC_CHANNEL);
-			adc_select_input(PICO_DETECT_ADC_CHANNEL);
-
-			/* Just drop the first measurement */
-			adc_read();
-			volatile uint16_t adc_result = adc_read();
-
-			gpio_init(PICO_LED_ACT_PIN);
-			gpio_init(26 + PICO_DETECT_ADC_CHANNEL);
-
-			if (adc_result < PICO_DETECT_ADC_THRESHOLD) {
-				cyw43_arch_init();
-				device_type = PLATFORM_DEVICE_TYPE_PICO_W;
-			} else {
-				device_type = PLATFORM_DEVICE_TYPE_PICO;
-			}
-		} else {
-			gpio_init(HWTYPE_PIN_0);
-			gpio_set_pulls(HWTYPE_PIN_0, true, false);
-
-			for (uint32_t i = 0; i < 100000; i++)
-				__nop();
-
-			if (gpio_get(HWTYPE_PIN_0)) {
-				device_type = PLATFORM_DEVICE_TYPE_MIOLINK;
-			} else {
-				device_type = PLATFORM_DEVICE_TYPE_MIOLINK_PICO;
-			}
-		}
+		device_type = PLATFORM_DEVICE_TYPE_MIOLINK;
 	}
 }
 
 int platform_hwversion(void)
 {
-	static int hwversion = -1;
-
-	if (hwversion == -1) {
-		gpio_init(HWVERSION_PIN_0);
-		gpio_init(HWVERSION_PIN_1);
-
-		gpio_set_pulls(HWVERSION_PIN_0, true, false);
-		gpio_set_pulls(HWVERSION_PIN_1, true, false);
-
-		for (uint32_t i = 0; i < 100000; i++)
-			__nop();
-
-		hwversion = gpio_get(HWVERSION_PIN_1) ? (1 << 1) : 0;
-		hwversion |= gpio_get(HWVERSION_PIN_0) ? (1 << 0) : 0;
-
-		hwversion++;
-	}
-
-	return hwversion;
+	return PLATFORM_MIOLINK_REV_A;
 }
 
 const platform_target_pins_t *platform_get_target_pins(void)
